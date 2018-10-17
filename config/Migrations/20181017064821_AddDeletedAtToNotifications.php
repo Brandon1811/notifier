@@ -15,7 +15,7 @@ class AddDeletedAtToNotifications extends AbstractMigration
         $table = $this->table('notifications');
         $table->addColumn('deleted_at', 'datetime', [
             'default' => null,
-            'null' => false,
+            'null' => true,
         ]);
         $table->update();
     }
