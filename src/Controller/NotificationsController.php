@@ -22,15 +22,21 @@ class NotificationsController extends AppController
 	public $components = [
 		'Bakkerij/Notifier.Notifier',
 	];
-
+    /**
+     * @var array
+     */
+    public $paginate = [
+        'limit' => 10,
+        'order' => [
+            'Notifications.created' => 'DESC'
+        ]
+    ];
     /**
 	 * @return \Cake\Http\Response|null
 	 */
 	public function index()
     {
-        $notifications = $this->Notifier->getNotifications();
-        Log::write("debug", 'notifications');
-        Log::write("debug", $notifications);
+        $notifications = $this->paginate($this->Notifier->getNotificationsQuery());
         $this->set(compact('notifications'));
     }
 
