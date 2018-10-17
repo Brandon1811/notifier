@@ -18,7 +18,7 @@ use Bakkerij\Notifier\Utility\NotificationManager;
 use Cake\Controller\Component;
 use Cake\Core\Configure;
 use Cake\ORM\TableRegistry;
-
+use Cake\I18n\Time;
 /**
  * Notifier component
  */
@@ -166,6 +166,43 @@ class NotifierComponent extends Component
     }
 
     /**
+     * markAsDeleted
+     *
+     * Used to mark a notification as deleted.
+     * If no notificationId is given, all notifications of the chosen user will be marked as read.
+     *
+     * @param int $notificationId Id of the notification.
+     * @param int|null $user Id of the user. Else the id of the session will be taken.
+     * @return void
+     */
+    public function markAsDeleted($notificationId = null, $user = null)
+    {
+        if (!$user) {
+            $user = $this->Controller->Auth->user('id');
+        }
+
+        $model = TableRegistry::get('Bakkerij/Notifier.Notifications');
+
+        if (!$notificationId) {
+            $query = $model->find('all')->where([
+                'user_id' => $user,
+                'state' => 1
+            ]);
+        } else {
+            $query = $model->find('all')->where([
+                'user_id' => $user,
+                'id' => $notificationId
+
+            ]);
+        }
+
+        foreach ($query as $item) {
+            $item->set('deleted_at', Time::now());
+            $model->save($item);
+        }
+    }
+
+    /**
      * notify
      *
      * Sends notifications to specific users.
@@ -230,7 +267,9 @@ class NotifierComponent extends Component
 
         $model = TableRegistry::get('Bakkerij/Notifier.Notifications');
 
-        $query = $model->find()->where(['Notifications.user_id' => $userId]);
+        $query = $model->find()
+            ->where(['Notifications.user_id' => $userId])
+            ->where(['Notifications.deleted_at IS' => null]);
 
         if (!is_null($state)) {
             $query->where(['Notifications.state' => $state]);
