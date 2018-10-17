@@ -59,4 +59,24 @@ class NotificationsController extends AppController
 
         return $this->redirect($this->referer());
     }
+
+	/**
+     * @return \Cake\Http\Response|null
+     */
+    public function delete($id = null)
+    {
+        $this->request->allowMethod(['post', 'put', 'delete']);
+        $notDeletedCountBefore = $this->Notifier->countNotifications(null); // original not deleted count
+        $plural = (isset($id)) ? 'notification':'notifications';
+        if ($this->request->is(['post', 'put'])) {
+            $this->Notifier->markAsDeleted($id);
+        }
+        if ($notDeletedCountBefore === $this->Notifier->countNotifications(null)) {
+            $this->Flash->error('Failed to delete ' . $plural . '. Please, try again.');
+        } else {
+            $this->Flash->success('Deleted ' . $plural . '.');
+        }
+
+        return $this->redirect($this->referer());
+    }
 }
