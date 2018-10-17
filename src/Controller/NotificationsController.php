@@ -1,5 +1,7 @@
 <?php
-namespace App\Controller;
+namespace Bakkerij\Notifier\Controller;
+
+
 
 use App\Controller\AppController;
 use Cake\Log\Log;
