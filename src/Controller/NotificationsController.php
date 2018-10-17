@@ -48,5 +48,7 @@ class NotificationsController extends AppController
         } else {
             $this->Flash->success('Marked ' . $plural . ' as read.');
         }
+
+        return $this->redirect($this->referer());
     }
 }
