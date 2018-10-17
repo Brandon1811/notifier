@@ -29,6 +29,8 @@ class NotificationsController extends AppController
 	public function index()
     {
         $notifications = $this->Notifier->getNotifications();
+        Log::write("debug", 'notifications');
+        Log::write("debug", $notifications);
         $this->set(compact('notifications'));
     }
 
