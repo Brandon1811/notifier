@@ -36,6 +36,7 @@ class Notification extends Entity
         'user_id' => true,
         'state' => false,
         'user' => false,
+        'delated_at' => false,
     ];
 
     /**

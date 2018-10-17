@@ -59,7 +59,8 @@ class NotificationsTable extends Table
             ->allowEmpty('title')
             ->allowEmpty('body')
             ->add('state', 'valid', ['rule' => 'numeric'])
-            ->allowEmpty('state');
+            ->allowEmpty('state')
+            ->allowEmpty('deleted_at');
 
         return $validator;
     }
