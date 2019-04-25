@@ -150,6 +150,19 @@ class Notification extends Entity
         }
         return false;
     }
+    /*
+     * _getAction
+     *
+     * Getter for the action link.
+     * Data is used from the vars-column.
+     *
+     * @return string
+     */
+    protected function _getAction()
+    {
+        $vars = json_decode($this->_properties['vars'], true);
+        return '/' . $vars['controller'] . '/' . $vars['action'] . '/' . $vars['relevant_id'];
+    }
 
     /**
      * Virtual fields
