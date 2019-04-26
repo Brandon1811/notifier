@@ -160,7 +160,6 @@ class Notification extends Entity
     protected function _getAction()
     {
         $vars = json_decode($this->_properties['vars'], true);
-        Log::write('debug', $vars);
         return '/' . $vars['controller'] . '/' . $vars['action'] . '/' . $vars['relevant_id'];
     }
     /**
