@@ -17,7 +17,7 @@ namespace Bakkerij\Notifier\Model\Entity;
 use Cake\Core\Configure;
 use Cake\ORM\Entity;
 use Cake\Utility\Text;
-
+use Cake\Log\Log;
 /**
  * Notification Entity.
  */
@@ -36,7 +36,6 @@ class Notification extends Entity
         'user_id' => true,
         'state' => false,
         'user' => false,
-        'delated_at' => false,
     ];
 
     /**
@@ -161,13 +160,13 @@ class Notification extends Entity
     protected function _getAction()
     {
         $vars = json_decode($this->_properties['vars'], true);
+        Log::write('debug', $vars);
         return '/' . $vars['controller'] . '/' . $vars['action'] . '/' . $vars['relevant_id'];
     }
-
     /**
      * Virtual fields
      *
      * @var array
      */
-    protected $_virtual = ['title', 'body', 'unread', 'read'];
+    protected $_virtual = ['title', 'body', 'unread', 'read', 'action'];
 }
