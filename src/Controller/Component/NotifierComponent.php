@@ -272,7 +272,7 @@ class NotifierComponent extends Component
             ->where(['Notifications.user_id' => $userId])
             ->where(['Notifications.deleted_at IS' => null]);
 
-        if (isset(($state)) {
+        if (isset($state)) {
             $query->where(['Notifications.state' => (int)$state]);
         }
 
