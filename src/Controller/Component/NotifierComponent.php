@@ -125,6 +125,7 @@ class NotifierComponent extends Component
     public function countNotifications($userId = null, $state = null)
     {
         $query = $this->getNotificationsQuery($userId, $state);
+
         return $query->count();
     }
 
@@ -271,8 +272,8 @@ class NotifierComponent extends Component
             ->where(['Notifications.user_id' => $userId])
             ->where(['Notifications.deleted_at IS' => null]);
 
-        if (!is_null($state)) {
-            $query->where(['Notifications.state' => $state]);
+        if (isset(($state)) {
+            $query->where(['Notifications.state' => (int)$state]);
         }
 
         return $query;

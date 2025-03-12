@@ -29,7 +29,7 @@ class Notification extends Entity
      *
      * @var array
      */
-    protected array $_accessible = [
+    protected $_accessible = [
         'template' => true,
         'vars' => true,
         'tracking_id' => true,
@@ -167,5 +167,5 @@ class Notification extends Entity
      *
      * @var array
      */
-    protected array $_virtual = ['title', 'body', 'unread', 'read', 'action'];
+    protected $_virtual = ['title', 'body', 'unread', 'read', 'action'];
 }
