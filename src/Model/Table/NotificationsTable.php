@@ -24,7 +24,6 @@ use Cake\Validation\Validator;
  */
 class NotificationsTable extends Table
 {
-
     /**.
      * Configurations
      * @var array
@@ -39,9 +38,9 @@ class NotificationsTable extends Table
      */
     public function initialize(array $config)
     {
-        $this->table('notifications');
-        $this->displayField('title');
-        $this->primaryKey('id');
+        $this->setTable('notifications');
+        $this->setDisplayField('title');
+        $this->setPrimaryKey('id');
         $this->addBehavior('Timestamp');
     }
 
